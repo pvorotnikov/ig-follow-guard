@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+
+  install:
+    commands:
+      - echo Performing install...
+      - cd api/src
+      - npm install
+      - cd ..
+
+  pre_build:
+    commands:
+      - echo Performing tests...
+      - cd api/src
+      - npm test
+      - cd ..
+
+  build:
+    commands:
+      - echo Perforimg build...
+      - aws cloudformation package --template-file template.yaml
+                                   --output-template-file serverless-output.yaml
+                                   --s3-bucket hobbit-build
+                                   --s3-prefix ig-follow-guard
+
+artifacts:
+  type: zip
+  files:
+    - template.yaml
+    - serverless-output.yaml

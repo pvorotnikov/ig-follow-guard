@@ -1,0 +1,34 @@
+{
+  "name": "follow-guard-api",
+  "version": "1.0.0",
+  "description": "Follow Guard API",
+  "main": "lambda.js",
+  "scripts": {
+    "test": "mocha --recursive tests/unit/",
+    "start": "nodemon bin/www",
+    "package": "sam package --template-file ../template.yaml --output-template-file ../packaged.yaml --s3-bucket $Bucket",
+    "deploy": "sam deploy --template-file ../packaged.yaml --stack-name $Stack --capabilities CAPABILITY_IAM --parameter-overrides InstagramClientId=$InstagramClientId InstagramClientSecret=$InstagramClientSecret",
+    "output": "aws cloudformation describe-stacks --stack-name $Stack --query 'Stacks[].Outputs'"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^3.3.5",
+    "axios": "^0.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "hat": "0.0.3",
+    "lodash": "^4.17.11",
+    "morgan": "^1.9.1",
+    "nconf": "^0.10.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "moxios": "^0.4.0",
+    "nodemon": "^1.18.10",
+    "rewire": "^4.0.1",
+    "sinon": "^7.2.2",
+    "sinon-chai": "^3.3.0",
+    "supertest": "^3.3.0"
+  }
+}
