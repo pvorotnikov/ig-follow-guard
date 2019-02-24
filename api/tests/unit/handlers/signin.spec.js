@@ -20,8 +20,7 @@ describe('handlers/signin.js', function () {
     const res = await request(app)
     .get('/signin')
 
-    res.status.should.equal(200)
-    res.body.status.should.equal('ok')
+    res.status.should.equal(302)
 
   })
 

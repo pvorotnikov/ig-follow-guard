@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Page, } from '../../_components'
+import { Page } from '../../_components'
+import { Image, } from 'semantic-ui-react'
 
 class HomePage extends React.PureComponent {
 
   render() {
     return (
       <Page title='Dashboard'>
-        Welcome { this.props.displayName }
+        <Image avatar src={this.props.user.profile_picture} />
+        Welcome, { this.props.user.full_name }
       </Page>
     )
   }
@@ -16,13 +18,13 @@ class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  displayName: PropTypes.string,
+  user: PropTypes.object,
 }
 
 function mapStateToProps(state) {
   const { auth } = state
   return {
-    displayName: auth.user ? auth.user.displayName : null
+    user: auth.user
   }
 }
 

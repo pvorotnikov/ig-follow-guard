@@ -7,15 +7,16 @@ export const authActions = {
   signOut,
 }
 
-function signIn(history) {
+function signIn(token, history) {
 
   return async dispatch => {
     try {
       dispatch(request())
 
-      let user = await authService.signIn()
+      let user = await authService.signIn(token)
 
       dispatch(success(user))
+      localStorage.setItem('token', token)
       localStorage.setItem('user', JSON.stringify(user))
       history.push('/')
     } catch (err) {
@@ -31,6 +32,7 @@ function signIn(history) {
 
 function signOut(history) {
 
+  localStorage.removeItem('token')
   localStorage.removeItem('user')
   history.push('/welcome')
   return { type: authConstants.LOGOUT }

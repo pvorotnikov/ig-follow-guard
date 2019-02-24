@@ -1,11 +1,5 @@
 #!/usr/bin/env node
-
-// create configuration
 const nconf = require('nconf')
-nconf.env().defaults({
-    PORT: 4000,
-})
-
 const http = require('http')
 const app = require('../app')
 const { logger } = require('../lib')

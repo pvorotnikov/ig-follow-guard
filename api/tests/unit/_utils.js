@@ -4,18 +4,18 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 function expressApp(routers) {
-    const app = express()
+  const app = express()
 
-    app.use(cors())
-    app.use(bodyParser.json())
-    app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(cors())
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: false }))
 
-    // bind routers
-    routers.forEach(r => r(app))
+  // bind routers
+  routers.forEach(r => r(app))
 
-    return app
+  return app
 }
 
 module.exports = {
-    expressApp,
+  expressApp,
 }

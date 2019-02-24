@@ -1,7 +1,11 @@
 // configuration
 const nconf = require('nconf')
 nconf.env().defaults({
-    
+  PORT: 4000,
+  JWT_SECRET: 'jwt-secret',
+  IG_CLIENT_ID: 'none',
+  IG_CLIENT_SECRET: 'none',
+  IG_REDIRECT_URL: 'http://127.0.0.1:4000/signin/ig',
 })
 
 const chai = require('chai')
@@ -11,9 +15,9 @@ chai.use(sinonChai)
 const { logger, } = require('../../lib')
 
 before(() => {
-    logger.transports[0].silent = true
+  logger.transports[0].silent = true
 })
 
 after(() => {
-    logger.transports[0].silent = false
+  logger.transports[0].silent = false
 })
