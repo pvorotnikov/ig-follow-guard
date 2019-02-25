@@ -1,8 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  age-backend
-  SAM template for deploying Age backend service in AWS.
+  ig-follow-guard
+  SAM template for deploying IG Follow Guard service in AWS.
 
 # More info about Globals:
 # https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
@@ -12,12 +12,18 @@ Globals:
 
 
 Parameters:
-  GoogleProjectId:
+  InstagramClientId:
+    NoEcho: true
     Type: String
-    Description: ID of the Google Project
-  GoogleApplicationCredentials:
+    Description: Client Id
+  InstagramClientSecret:
+    NoEcho: true
     Type: String
-    Description: File name of the JSON file that contains your service account key
+    Description: Client Secret
+  JWTSecret:
+    NoEcho: true
+    Type: String
+    Description: JWT Secret
 
 
 Resources:
@@ -80,15 +86,17 @@ Resources:
   ApiFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/
+      CodeUri: api/
       Handler: lambda.handler
       Runtime: nodejs8.10
       Timeout: 3
       MemorySize: 512
       Environment:
         Variables:
-          GOOGLE_PROJECT_ID: !Ref GoogleProjectId
-          GOOGLE_APPLICATION_CREDENTIALS: !Ref GoogleApplicationCredentials
+          IG_CLIENT_ID: !Ref InstagramClientId
+          IG_CLIENT_SECRET: !Ref InstagramClientSecret
+          JWT_SECRET: !Ref JWTSecret
+          BASE_URL: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
       Events:
         ProxyApiRoot:
           Type: Api

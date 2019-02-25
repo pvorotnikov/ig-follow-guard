@@ -7,7 +7,7 @@
     "test": "mocha --recursive tests/unit/",
     "start": "nodemon bin/www",
     "package": "sam package --template-file ../template.yaml --output-template-file ../packaged.yaml --s3-bucket $Bucket",
-    "deploy": "sam deploy --template-file ../packaged.yaml --stack-name $Stack --capabilities CAPABILITY_IAM --parameter-overrides InstagramClientId=$InstagramClientId InstagramClientSecret=$InstagramClientSecret",
+    "deploy": "sam deploy --template-file ../packaged.yaml --stack-name $Stack --capabilities CAPABILITY_IAM --parameter-overrides InstagramClientId=$InstagramClientId InstagramClientSecret=$InstagramClientSecret JWTSecret=$JWTSecret",
     "output": "aws cloudformation describe-stacks --stack-name $Stack --query 'Stacks[].Outputs'"
   },
   "dependencies": {

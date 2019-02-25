@@ -13,15 +13,15 @@ module.exports = function(app) {
 
   const OAUTH_CODE_URL = 'https://api.instagram.com/oauth/authorize/'
   const OAUTH_TOKEN_URL = 'https://api.instagram.com/oauth/access_token'
+  const IG_REDIRECT_URL = `${nconf.get('BASE_URL')}/signin/ig`
 
   router.get('/', async (req, res, next) => {
 
     try {
       const state = req.query.state || hat(32)
-      const redirectUrl = nconf.get('IG_REDIRECT_URL')
       const clientId = nconf.get('IG_CLIENT_ID')
 
-      res.redirect(`${OAUTH_CODE_URL}?client_id=${clientId}&redirect_uri=${redirectUrl}&response_type=code&state=${state}`)
+      res.redirect(`${OAUTH_CODE_URL}?client_id=${clientId}&redirect_uri=${IG_REDIRECT_URL}&response_type=code&state=${state}`)
 
     } catch (err) {
       res.status(err.status || 500).json(new ErrorResponse(err.message))
@@ -45,7 +45,7 @@ module.exports = function(app) {
           client_id: nconf.get('IG_CLIENT_ID'),
           client_secret: nconf.get('IG_CLIENT_SECRET'),
           grant_type: 'authorization_code',
-          redirect_uri: nconf.get('IG_REDIRECT_URL'),
+          redirect_uri: IG_REDIRECT_URL,
           code: req.query.code,
         }))
 
