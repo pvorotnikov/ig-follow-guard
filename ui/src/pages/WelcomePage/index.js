@@ -30,7 +30,7 @@ class WelcomePage extends React.PureComponent {
     let currentPathName = this.props.history.location.pathname
     let currentOrigin = window.location.origin
     let encodedHref = btoa(`${currentOrigin}/#${currentPathName}`)
-    window.location = `http://127.0.0.1:4000/signin?state=${encodedHref}`
+    window.location = `${process.env.REACT_APP_BASE_URL}/signin?state=${encodedHref}`
   }
 
   render() {
