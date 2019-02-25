@@ -28,8 +28,9 @@ class WelcomePage extends React.PureComponent {
 
   _handleSignIn() {
     let currentPathName = this.props.history.location.pathname
-    let currentOrigin = window.location.origin
-    let encodedHref = btoa(`${currentOrigin}/#${currentPathName}`)
+    let hash = window.location.hash
+    let currentOrigin = window.location.href.replace(hash, '')
+    let encodedHref = btoa(`${currentOrigin}#${currentPathName}`)
     window.location = `${process.env.REACT_APP_BASE_URL}/signin?state=${encodedHref}`
   }
 

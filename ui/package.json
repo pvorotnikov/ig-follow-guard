@@ -2,6 +2,7 @@
   "name": "follow-guard-ui",
   "version": "1.0.0",
   "private": true,
+  "homepage": "http://hobbit-public.s3-website-us-east-1.amazonaws.com/sites/ig-follow-guard-ui",
   "dependencies": {
     "axios": "^0.18.0",
     "hat": "0.0.3",
