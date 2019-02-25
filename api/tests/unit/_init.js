@@ -5,7 +5,7 @@ nconf.env().defaults({
   JWT_SECRET: 'jwt-secret',
   IG_CLIENT_ID: 'none',
   IG_CLIENT_SECRET: 'none',
-  IG_REDIRECT_URL: 'http://127.0.0.1:4000/signin/ig',
+  BASE_URL: 'http://127.0.0.1:4000',
 })
 
 const chai = require('chai')
