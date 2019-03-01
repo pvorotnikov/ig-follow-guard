@@ -20,8 +20,9 @@ module.exports = function(app) {
     try {
       const state = req.query.state || hat(32)
       const clientId = nconf.get('IG_CLIENT_ID')
+      const scope = 'basic'
 
-      res.redirect(`${OAUTH_CODE_URL}?client_id=${clientId}&redirect_uri=${IG_REDIRECT_URL}&response_type=code&state=${state}`)
+      res.redirect(`${OAUTH_CODE_URL}?client_id=${clientId}&redirect_uri=${IG_REDIRECT_URL}&response_type=code&scope=${scope}&state=${state}`)
 
     } catch (err) {
       res.status(err.status || 500).json(new ErrorResponse(err.message))
@@ -55,7 +56,7 @@ module.exports = function(app) {
         const userId = user.id
 
         // create JWT token
-        const token = await auth.createToken(user)
+        const token = await auth.createToken({ ...user, token: accessToken })
 
         res.redirect(state + `?success=${token}`)
 

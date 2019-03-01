@@ -12,11 +12,11 @@ Globals:
 
 
 Parameters:
-  InstagramClientId:
+  FacebookAppId:
     NoEcho: true
     Type: String
     Description: Client Id
-  InstagramClientSecret:
+  FacebookAppSecret:
     NoEcho: true
     Type: String
     Description: Client Secret
@@ -93,8 +93,8 @@ Resources:
       MemorySize: 512
       Environment:
         Variables:
-          IG_CLIENT_ID: !Ref InstagramClientId
-          IG_CLIENT_SECRET: !Ref InstagramClientSecret
+          FB_APP_ID: !Ref FacebookAppId
+          FB_APP_SECRET: !Ref FacebookAppSecret
           JWT_SECRET: !Ref JWTSecret
           BASE_URL: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
       Events:
