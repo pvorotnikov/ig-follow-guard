@@ -1,6 +1,8 @@
-import { IAction, alertActions } from './'
+import { alertActions } from './'
 import { authConstants } from '../_constants'
 import { authService } from '../_services'
+import { AnyAction, Dispatch, ActionCreator } from 'redux';
+import { History } from 'history';
 
 interface IUser {
   bio: string,
@@ -15,9 +17,9 @@ interface IUser {
   website: string
 }
 
-function signIn(token: string, history: any) {
+const signIn: ActionCreator<any> = (token: string, history: History) => {
 
-  return async (dispatch: (action: IAction) => void) => {
+  return async (dispatch: Dispatch) => {
     try {
       dispatch(request())
 
@@ -33,12 +35,12 @@ function signIn(token: string, history: any) {
     }
   }
 
-  function request():IAction { return { type: authConstants.LOGIN_REQUEST } }
-  function success(user: IUser):IAction { return { type: authConstants.LOGIN_SUCCESS, user } }
-  function failure():IAction { return { type: authConstants.LOGIN_FAILURE } }
+  function request(): AnyAction { return { type: authConstants.LOGIN_REQUEST } }
+  function success(user: IUser): AnyAction { return { type: authConstants.LOGIN_SUCCESS, user } }
+  function failure(): AnyAction { return { type: authConstants.LOGIN_FAILURE } }
 }
 
-function signOut(history: any):IAction {
+const signOut = (history: History): AnyAction => {
   localStorage.removeItem('token')
   localStorage.removeItem('user')
   history.push('/welcome')

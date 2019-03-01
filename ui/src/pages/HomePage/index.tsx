@@ -1,10 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Page } from '../../_components'
 import { Image, } from 'semantic-ui-react'
 
-class HomePage extends React.PureComponent {
+type Props = DispatchProp & {
+  user: any
+}
+
+class HomePage extends React.PureComponent<Props> {
 
   render() {
     return (
@@ -16,12 +19,7 @@ class HomePage extends React.PureComponent {
   }
 }
 
-HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  user: PropTypes.object,
-}
-
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   const { auth } = state
   return {
     user: auth.user

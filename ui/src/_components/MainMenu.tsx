@@ -1,12 +1,15 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import reactCSS from 'reactcss'
-import { Link, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
+import { connect, DispatchProp } from 'react-redux'
 import { Menu, Icon, } from 'semantic-ui-react'
 import { authActions } from '../_actions'
 
-class MainMenu extends React.PureComponent {
+type Props = RouteComponentProps & DispatchProp & {
+
+}
+
+class MainMenu extends React.PureComponent<Props> {
 
   _handleSignOut() {
     this.props.dispatch(authActions.signOut(this.props.history))
@@ -14,6 +17,7 @@ class MainMenu extends React.PureComponent {
 
   render() {
     const { pathname } = this.props.history.location
+
     const styles = reactCSS({
       default: {
         menu: {
@@ -39,10 +43,9 @@ class MainMenu extends React.PureComponent {
   }
 }
 
-
-MainMenu.propTypes = {
-  history: PropTypes.object.isRequired,
+function mapStateToProps(state: any) {
+  return {}
 }
 
-const withRouterMainMenu = connect()(withRouter(MainMenu))
+const withRouterMainMenu = connect(mapStateToProps)(withRouter(MainMenu))
 export { withRouterMainMenu as MainMenu }

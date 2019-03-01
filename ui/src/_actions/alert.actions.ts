@@ -1,20 +1,20 @@
 
 import { alertConstants } from '../_constants'
-import { IAction } from './';
+import { AnyAction } from 'redux';
 
-function success(message: string):IAction {
+function success(message: string): AnyAction {
     return { type: alertConstants.SUCCESS, message }
 }
 
-function error(message: string):IAction {
+function error(message: string): AnyAction {
     return { type: alertConstants.ERROR, message }
 }
 
-function warning(message: string):IAction {
+function warning(message: string): AnyAction {
     return { type: alertConstants.WARNING, message }
 }
 
-function clear():IAction {
+function clear(): AnyAction {
     return { type: alertConstants.CLEAR }
 }
 

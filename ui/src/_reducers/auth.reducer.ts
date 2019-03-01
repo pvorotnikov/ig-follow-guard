@@ -1,13 +1,21 @@
 import { authConstants } from '../_constants'
+import { AnyAction } from 'redux';
 
-let user = JSON.parse(localStorage.getItem('user'))
-const initialState = user ? { loading: false, user } : { loading: false, user: null }
+interface IState {
+  loading: boolean,
+  user: any
+}
+
+let user: any = JSON.parse(localStorage.getItem('user') || 'null')
+const initialState: IState = user
+  ? { loading: false, user }
+  : { loading: false, user: null }
 
 /**
  * { user: null, loading: false }
  * @type {Object}
  */
-export default function reducer(state = initialState, action) {
+export default function reducer(state: IState = initialState, action: AnyAction): IState {
 
   switch (action.type) {
 

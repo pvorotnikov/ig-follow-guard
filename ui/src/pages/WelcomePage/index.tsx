@@ -1,14 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import reactCSS from 'reactcss'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { connect, DispatchProp } from 'react-redux'
+import { withRouter, RouteProps, RouteComponentProps } from 'react-router-dom'
 import { Header, Button, Icon, Segment, Message } from 'semantic-ui-react'
 import { Page } from '../../_components'
 import { authActions } from '../../_actions'
 
+type Props = DispatchProp & RouteComponentProps & {
+  loading: boolean
+}
 
-class WelcomePage extends React.PureComponent {
+class WelcomePage extends React.PureComponent<Props> {
 
   state = {
     error: null,
@@ -16,13 +18,14 @@ class WelcomePage extends React.PureComponent {
   }
 
   componentDidMount() {
-    const searchParams = new URLSearchParams(this.props.history.location.search)
+    const searchParams: URLSearchParams = new URLSearchParams(this.props.history.location.search)
     const error = searchParams.has('error') ? 'An error occurred.' : null
     const success = searchParams.has('success') ? 'You have logged in. You will be redirected in a second.' : null
     this.setState({ error, success })
 
     if (success) {
-      this.props.dispatch(authActions.signIn(searchParams.get('success'), this.props.history))
+      const token = searchParams.get('success') || ''
+      this.props.dispatch(authActions.signIn(token, this.props.history))
     }
   }
 
@@ -31,7 +34,7 @@ class WelcomePage extends React.PureComponent {
     let hash = window.location.hash
     let currentOrigin = window.location.href.replace(hash, '')
     let encodedHref = btoa(`${currentOrigin}#${currentPathName}`)
-    window.location = `${process.env.REACT_APP_BASE_URL}/signin?state=${encodedHref}`
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/signin?state=${encodedHref}`
   }
 
   render() {
@@ -63,13 +66,7 @@ class WelcomePage extends React.PureComponent {
   }
 }
 
-WelcomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-}
-
-function mapStateToProps(state) {
+function mapStateToProps(state:any) {
   const { auth } = state
   return {
     loading: auth.loading

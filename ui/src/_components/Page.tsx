@@ -1,10 +1,22 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
-import { MainMenu } from './'
+import { MainMenu } from '.'
 
-class Page extends React.PureComponent {
+type Props = DispatchProp & {
+  loggedIn: boolean,
+  title?: string,
+  showHeader?: boolean,
+  loading?: boolean,
+}
+
+class Page extends React.PureComponent<Props> {
+
+  static defaultProps = {
+    title: 'Page title',
+    showHeader: true,
+    loading: false,
+  }
 
   render() {
     return (
@@ -22,21 +34,7 @@ class Page extends React.PureComponent {
   }
 }
 
-
-Page.propTypes = {
-  title: PropTypes.string,
-  loggedIn: PropTypes.bool.isRequired,
-  showHeader: PropTypes.bool,
-  loading: PropTypes.bool,
-}
-
-Page.defaultProps = {
-  loading: false,
-  showHeader: true,
-  title: "Page title",
-}
-
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   const { auth } = state
   return {
     loggedIn: Boolean(auth.user),

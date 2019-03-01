@@ -1,10 +1,16 @@
 import { alertConstants } from '../_constants'
+import { AnyAction } from 'redux';
+
+interface IState {
+  type?: string,
+  message?: string,
+}
 
 /**
  * { }
  * @type {Object}
  */
-export default function reducer(state = {}, action) {
+export default function reducer(state: IState = {}, action: AnyAction): IState {
 
   switch (action.type) {
 
