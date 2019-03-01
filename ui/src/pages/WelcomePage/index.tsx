@@ -66,7 +66,7 @@ class WelcomePage extends React.PureComponent<Props> {
   }
 }
 
-function mapStateToProps(state:any) {
+function mapStateToProps(state: any) {
   const { auth } = state
   return {
     loading: auth.loading

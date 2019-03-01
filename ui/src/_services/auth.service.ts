@@ -4,7 +4,7 @@ export const authService = {
   signIn,
 }
 
-async function signIn(token:string) {
+async function signIn(token: string) {
   let response = await client.get('/users/me', {
     headers: { 'Authorization': `Bearer ${token}` }
   })

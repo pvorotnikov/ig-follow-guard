@@ -11,10 +11,6 @@ const initialState: IState = user
   ? { loading: false, user }
   : { loading: false, user: null }
 
-/**
- * { user: null, loading: false }
- * @type {Object}
- */
 export default function reducer(state: IState = initialState, action: AnyAction): IState {
 
   switch (action.type) {

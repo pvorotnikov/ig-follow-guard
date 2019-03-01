@@ -6,10 +6,6 @@ interface IState {
   message?: string,
 }
 
-/**
- * { }
- * @type {Object}
- */
 export default function reducer(state: IState = {}, action: AnyAction): IState {
 
   switch (action.type) {
